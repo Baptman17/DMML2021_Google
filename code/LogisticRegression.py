@@ -8,6 +8,9 @@ import pandas as pd
 print("Getting data...")
 df = get_training_data()
 df["difficulty"] = df["difficulty"].astype("category")
+print(df)
+print("Preparing ")
+
 
 print("Splitting data...")
 X = df['sentence']

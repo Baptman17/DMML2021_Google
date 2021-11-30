@@ -57,5 +57,6 @@ scale_mapper = {0:"A1", 1:"A2", 2:"B1",3:"B2", 4:"C1", 5:"C2"}
 df_final['difficulty'] = y_pred
 df_final['difficulty'] = df_final['difficulty'].replace(scale_mapper)
 print(df_final)
+df_final.to_csv("submission_test.csv", index = False)
 
 
