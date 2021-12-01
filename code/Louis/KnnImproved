@@ -86,7 +86,7 @@ X = df[['avg_len_word','avg_word_per_sent','3syl','4syl','eng_stop']]
 y = df['difficulty']
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=1234, stratify=y)
 
-knnclass = KNeighborsClassifier(n_neighbors=5)
+knnclass = KNeighborsClassifier(n_neighbors=5) 
 
 knnclass.fit(X_train,y_train)
 
