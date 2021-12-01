@@ -4,6 +4,7 @@ from sklearn.linear_model import LogisticRegression, LogisticRegressionCV
 from sklearn.pipeline import Pipeline
 from sklearn.decomposition import PCA
 from sklearn.preprocessing import StandardScaler
+from sklearn.neighbors import KNeighborsClassifier
 from sklearn.tree import DecisionTreeClassifier
 from util import get_training_data, get_tfidf_vector, evaluate, get_unlabelled_test_data
 import pandas as pd
@@ -12,6 +13,7 @@ from spacy.lang.en.stop_words import STOP_WORDS as en_stop
 import spacy
 import syllables
 import string
+import re
 
 print("Getting data...")
 df = get_training_data()
@@ -49,7 +51,7 @@ while i < len(tab):
     tab_avg_length.append(cmpt/(len(tab[i])+1))
     tab_word = df['sentence'][i].split()
     tab_freq_stop.append(len(tab[i])/len(tab_word))
-    sentences = df['sentence'][i].split('.')[:-1]
+    sentences = re.split(r'(.|...|\n)',df['sentence'][i])
     avg_sent_length = len(tab_word)/(len(sentences)+1)
     tab_gunning.append(0.4*(avg_sent_length + 100*(cmpt3syl/len(tab_word))))
     i = i + 1
@@ -80,7 +82,7 @@ while i < len(tab_test):
     tab_avg_length.append(cmpt/(len(tab_test[i])+1))
     tab_word = df_test['sentence'][i].split()
     tab_freq_stop.append(len(tab_test[i])/len(tab_word))
-    sentences = df_test['sentence'][i].split('.')[:-1]
+    sentences = re.split(r'(.|...|\n)',df_test['sentence'][i])
     avg_sent_length = len(tab_word)/(len(sentences)+1)
     tab_gunning.append(0.4*(avg_sent_length + 100*(cmpt3syl/len(tab_word))))
     i = i + 1
@@ -99,7 +101,7 @@ y = df['difficulty']
 
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=1234, stratify=y)
 
-LR_cv = LogisticRegressionCV(solver='lbfgs', cv=5, max_iter=1000, random_state=72)
+LR_cv = KNeighborsClassifier(n_neighbors=20)
 LR_cv.fit(X_train, y_train)
 y_pred = LR_cv.predict(X_test)
 

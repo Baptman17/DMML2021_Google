@@ -3,11 +3,15 @@ import spacy
 from sklearn.metrics import precision_score, recall_score, f1_score, confusion_matrix, accuracy_score
 from spacy.lang.fr.stop_words import STOP_WORDS
 from spacy.lang.fr import French
+from spacy.lang.en.stop_words import STOP_WORDS
+from spacy.lang.en import English
 from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
 import string
 
 stop_words = spacy.lang.fr.stop_words.STOP_WORDS
+stop_words_en = spacy.lang.en.stop_words.STOP_WORDS
 sp = spacy.load('fr_core_news_sm')
+sp2 = spacy.load("en_core_web_sm")
 punctuations = string.punctuation
 
 
@@ -34,6 +38,18 @@ def spacy_tokenizer(sentence):
     # Return preprocessed list of tokens
     return mytokens
 
+def english_token(sentence):
+    # Create token object, which is used to create documents with linguistic annotations.
+    mytokens = sp2(sentence)
+
+    # Lemmatize each token and convert each token into lowercase
+    mytokens = [ word.lemma_.lower().strip() for word in mytokens ]
+
+    # Remove stop words and punctuation
+    mytokens = [ word for word in mytokens if word in stop_words_en and word not in punctuations ]
+
+    # Return preprocessed list of tokens
+    return mytokens
 
 def get_tfidf_vector():
     return TfidfVectorizer(tokenizer=spacy_tokenizer)
