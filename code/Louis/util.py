@@ -7,6 +7,7 @@ from spacy.lang.en.stop_words import STOP_WORDS
 from spacy.lang.en import English
 from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
 import string
+import numpy as np
 
 stop_words = spacy.lang.fr.stop_words.STOP_WORDS
 stop_words_en = spacy.lang.en.stop_words.STOP_WORDS
@@ -51,8 +52,17 @@ def english_token(sentence):
     # Return preprocessed list of tokens
     return mytokens
 
+def spacy_tokenizer2(sentence):
+    nlp = spacy.load('fr_core_news_sm')
+    with nlp.disable_pipes():
+        vectors = np.array([token.vector for token in  nlp(sentence)])
+    return vectors
+
 def get_tfidf_vector():
     return TfidfVectorizer(tokenizer=spacy_tokenizer)
+
+def get_tfidf_vector2():
+    return TfidfVectorizer(tokenizer=spacy_tokenizer2)
 
 
 def evaluate(true, pred):
