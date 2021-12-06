@@ -35,8 +35,27 @@ def spacy_tokenizer(sentence):
     return mytokens
 
 
-def get_tfidf_vector():
-    return TfidfVectorizer(tokenizer=spacy_tokenizer)
+def get_tfidf_vector(config):
+    return TfidfVectorizer(tokenizer=spacy_tokenizer,
+                                   ngram_range=config[0],
+                                   min_df=config[1], max_df=config[2], analyzer=config[3])
+
+
+def configs():
+    models = list()
+    # Define config lists
+    ngram_range = [(1, 1), (1, 2), (1, 3), (2, 2), (2, 3), (3, 3)]
+    min_df = [1]
+    max_df = [1.0]
+    analyzer = ['word', 'char']
+    # Create config instances
+    for n in ngram_range:
+        for i in min_df:
+            for j in max_df:
+                for a in analyzer:
+                    cfg = [n, i, j, a]
+                    models.append(cfg)
+    return models
 
 
 def evaluate(true, pred):

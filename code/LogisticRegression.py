@@ -3,8 +3,10 @@ from sklearn.metrics import precision_score
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
 from sklearn.pipeline import Pipeline
-from util import get_training_data, get_tfidf_vector, evaluate
+from util import get_training_data, get_tfidf_vector, evaluate, configs
 import pandas as pd
+from sklearn.metrics import confusion_matrix, accuracy_score, precision_score, recall_score, f1_score
+
 
 print("Getting data...")
 df = get_training_data()
@@ -19,16 +21,21 @@ y = df['difficulty']
 
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=1234, stratify=y)
 
-classifier = LogisticRegression()
+result = []
+for config in configs():
+    tfidf_vector = get_tfidf_vector(config)
+    classifier = LogisticRegression()
 
-pipe = Pipeline([('vectorizer', get_tfidf_vector()),
-                 ('classifier', classifier)])
+    pipe = Pipeline([('vectorizer', tfidf_vector),
+                     ('classifier', classifier)])
 
-print("Fitting the model...")
-pipe.fit(X_train, y_train)
+    print("Fitting the model...")
+    pipe.fit(X_train, y_train)
 
-print("Predicting the values...")
-y_pred = pipe.predict(X_test)
+    print("Predicting the values...")
+    y_pred = pipe.predict(X_test)
 
-print("Evaluating the prediction...")
-evaluate(y_test, y_pred)
+    print("Evaluating the prediction...")
+    result.append([config, accuracy_score(y_test, y_pred)])
+
+print(result)
