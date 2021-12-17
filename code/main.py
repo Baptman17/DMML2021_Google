@@ -1,7 +1,9 @@
 from util import get_training_data
-from LogisticRegression import get_lr_metrics
+from LogisticRegression import LogisticRegressionThread
+from MLP import MLPThread
 from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
 from mdutils.mdutils import MdUtils
+import threading
 
 df = get_training_data()
 
@@ -41,25 +43,33 @@ df = get_training_data()
 # As usual, show the accuracy, precision, recall and f1 score on the test set.
 # TODO
 class ReadmeGenerator:
-    def __init__(self, lr):
+    def __init__(self, lr, mlp):
         self.__lr = lr
+        self.__mlp = mlp
         self.__mdFile = MdUtils(file_name="../README")
 
     def generate_redame(self):
         self.__mdFile.new_header(level=1, title="UNIL_DataMining_TextAnalytics")
-        data = ["","Logistic regression", "kNN Decision Tree", "Random Forests", "Paragraph", "Any other technique"]
-        data.extend(["Precision", self.__lr.getPrecision(),"","","",""])
-        data.extend(["Recall", self.__lr.getRecall(),"","","",""])
-        data.extend(["F1-score", self.__lr.getF1(),"","","",""])
-        data.extend(["Accuracy", self.__lr.getAccuracy(),"","","",""])
+        data = ["","Logistic regression", "kNN Decision Tree", "Random Forests", "Paragraph", "MLP"]
+        data.extend(["Precision", self.__lr.getPrecision(),"","","",self.__mlp.getPrecision()])
+        data.extend(["Recall", self.__lr.getRecall(),"","","",self.__mlp.getRecall()])
+        data.extend(["F1-score", self.__lr.getF1(),"","","",self.__mlp.getF1()])
+        data.extend(["Accuracy", self.__lr.getAccuracy(),"","","",self.__mlp.getAccuracy()])
         self.__mdFile.new_table(columns=6, rows=5, text=data)
         self.__mdFile.create_md_file()
 
 if __name__ == '__main__':
     print("Logistic regression")
-    lrMetrics = get_lr_metrics()
+    lrThread = LogisticRegressionThread()
+    lrThread.start()
 
-    rg = ReadmeGenerator(lrMetrics)
+    mlpThread = MLPThread()
+    mlpThread.start()
+
+    lrMetrics = lrThread.join()
+    mlpMetrics = mlpThread.join()
+
+    rg = ReadmeGenerator(lrMetrics, mlpMetrics)
     rg.generate_redame()
 
 
