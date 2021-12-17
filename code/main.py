@@ -1,6 +1,7 @@
 from util import get_training_data
-
+from LogisticRegression import get_lr_metrics
 from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
+from mdutils.mdutils import MdUtils
 
 df = get_training_data()
 
@@ -39,3 +40,27 @@ df = get_training_data()
 # Try to improve accuracy by training a better model using the techniques seen in class, or combinations of them.
 # As usual, show the accuracy, precision, recall and f1 score on the test set.
 # TODO
+class ReadmeGenerator:
+    def __init__(self, lr):
+        self.__lr = lr
+        self.__mdFile = MdUtils(file_name="../README")
+
+    def generate_redame(self):
+        self.__mdFile.new_header(level=1, title="UNIL_DataMining_TextAnalytics")
+        data = ["","Logistic regression", "kNN Decision Tree", "Random Forests", "Paragraph", "Any other technique"]
+        data.extend(["Precision", self.__lr.getPrecision(),"","","",""])
+        data.extend(["Recall", self.__lr.getRecall(),"","","",""])
+        data.extend(["F1-score", self.__lr.getF1(),"","","",""])
+        data.extend(["Accuracy", self.__lr.getAccuracy(),"","","",""])
+        self.__mdFile.new_table(columns=6, rows=5, text=data)
+        self.__mdFile.create_md_file()
+
+if __name__ == '__main__':
+    print("Logistic regression")
+    lrMetrics = get_lr_metrics()
+
+    rg = ReadmeGenerator(lrMetrics)
+    rg.generate_redame()
+
+
+
