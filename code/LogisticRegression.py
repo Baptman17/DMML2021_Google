@@ -33,7 +33,7 @@ class LogisticRegressionThread(threading.Thread):
         print("[LR]\t:\tSplitting data")
         X = df['sentence']
         y = df['difficulty']
-        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=0, stratify=y)
+        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=1234, stratify=y)
 
         bestMetrics = None
         bestModel = None
@@ -43,7 +43,7 @@ class LogisticRegressionThread(threading.Thread):
             configId = f"config {index+1}/{len(configs)}"
             print(f"[LR]\t:\t Starting with {configId}")
             tfidf_vector = get_tfidf_vector(config=config, with_dc=True)
-            classifier = LogisticRegression(max_iter=100000, random_state=0)
+            classifier = LogisticRegression(max_iter=150000, solver = 'saga', random_state=0)
 
             pipe = Pipeline([('vectorizer', tfidf_vector),
                              ('classifier', classifier)])
