@@ -68,35 +68,40 @@ if __name__ == '__main__':
 
     print(lr_metrics)
     sns.heatmap(pd.DataFrame(lr_metrics.getConfMatrix()), annot=True, cmap='Oranges', fmt='.4g');
-    plt.savefig("img/LR_without_DC.png")
+    path = "img/LR_without_DC.png" if sys.platform == "win32" else "../img/LR_without_DC.png"
+    plt.savefig(path)
     plt.clf()
     plt.cla()
     plt.close()
     
     print(kNN_metrics)
     sns.heatmap(pd.DataFrame(kNN_metrics.getConfMatrix()), annot=True, cmap='Oranges', fmt='.4g');
-    plt.savefig("img/KNN_without_DC.png")
+    path = "img/KNN_without_DC.png" if sys.platform == "win32" else "../img/KNN_without_DC.png"
+    plt.savefig(path)
     plt.clf()
     plt.cla()
     plt.close()
 
     print(dt_metrics)
     sns.heatmap(pd.DataFrame(dt_metrics.getConfMatrix()), annot=True, cmap='Oranges', fmt='.4g');
-    plt.savefig("img/DT_without_DC.png")
+    path = "img/DT_without_DC.png" if sys.platform == "win32" else "../img/DT_without_DC.png"
+    plt.savefig(path)
     plt.clf()
     plt.cla()
     plt.close()
 
     print(rf_metrics)
     sns.heatmap(pd.DataFrame(rf_metrics.getConfMatrix()), annot=True, cmap='Oranges', fmt='.4g');
-    plt.savefig("img/RF_without_DC.png")
+    path = "img/RF_without_DC.png" if sys.platform == "win32" else "../img/RF_without_DC.png"
+    plt.savefig(path)
     plt.clf()
     plt.cla()
     plt.close()
 
     df = pd.DataFrame({'Accuracy' : [float(lr_metrics.getAccuracy()),float(kNN_metrics.getAccuracy()),float(dt_metrics.getAccuracy()),float(rf_metrics.getAccuracy())]}, index=["LR","kNN","DT","RF"])
     df.plot()
-    plt.savefig("img/Graph_Acc_without_DC.png")
+    path = "img/Graph_Acc_without_DC.png" if sys.platform == "win32" else "../img/Graph_Acc_without_DC.png"
+    plt.savefig(path)
 
     print(f"[Main]\t:\tTotal execution time without data cleaning : {time.time() - start_time:.4f} seconds")
 
