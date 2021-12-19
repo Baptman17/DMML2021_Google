@@ -41,7 +41,7 @@ class LogisticRegressionThread(threading.Thread):
             configId = f"config {index+1}/{len(configs)}"
             print(f"[LR]\t:\t Starting with {configId}")
             tfidf_vector = get_tfidf_vector(config=config, with_dc=True)
-            classifier = LogisticRegression(penalty='l1', max_iter=100000, class_weight = 'balanced', solver = 'saga', random_state=0)
+            classifier = LogisticRegression(max_iter=100000, random_state=0)
 
             pipe = Pipeline([('vectorizer', tfidf_vector),
                              ('classifier', classifier)])
