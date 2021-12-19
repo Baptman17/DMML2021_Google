@@ -3,7 +3,17 @@
   <component name="ChangeListManager">
     <list default="true" id="1139e7a6-a804-47c9-99da-51d25d7c5aed" name="Changes" comment="path in LR for mac &amp; windows">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/code/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/code/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/code/DecisionTree.py" beforeDir="false" afterPath="$PROJECT_DIR$/code/DecisionTree.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/code/EvaluationMetrics.py" beforeDir="false" afterPath="$PROJECT_DIR$/code/EvaluationMetrics.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/code/MLP.py" beforeDir="false" afterPath="$PROJECT_DIR$/code/MLP.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/code/RandomForest.py" beforeDir="false" afterPath="$PROJECT_DIR$/code/RandomForest.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/code/kNN.py" beforeDir="false" afterPath="$PROJECT_DIR$/code/kNN.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/img/DT_without_DC.png" beforeDir="false" afterPath="$PROJECT_DIR$/img/DT_without_DC.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/img/Graph_Acc_without_DC.png" beforeDir="false" afterPath="$PROJECT_DIR$/img/Graph_Acc_without_DC.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/img/KNN_without_DC.png" beforeDir="false" afterPath="$PROJECT_DIR$/img/KNN_without_DC.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/img/LR_without_DC.png" beforeDir="false" afterPath="$PROJECT_DIR$/img/LR_without_DC.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/img/RF_without_DC.png" beforeDir="false" afterPath="$PROJECT_DIR$/img/RF_without_DC.png" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -192,7 +202,7 @@
       <workItem from="1638784440952" duration="2281000" />
       <workItem from="1639734413577" duration="14832000" />
       <workItem from="1639935455174" duration="2161000" />
-      <workItem from="1639939250671" duration="1221000" />
+      <workItem from="1639939250671" duration="2404000" />
     </task>
     <task id="LOCAL-00001" summary="Update README with evaluation metrics (LogisticRegression only)">
       <created>1639741140217</created>
@@ -243,7 +253,14 @@
       <option name="project" value="LOCAL" />
       <updated>1639939824778</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="path in LR for mac &amp; windows">
+      <created>1639941134235</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1639941134235</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -264,7 +281,7 @@
     <SUITE FILE_PATH="coverage/DMML2021_Google$DecisionTree_louis_v2.coverage" NAME="DecisionTree_louis.v2 Coverage Results" MODIFIED="1638784880785" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/code/Louis" />
     <SUITE FILE_PATH="coverage/DMML2021_Google$DecisionTree.coverage" NAME="DecisionTree Coverage Results" MODIFIED="1638783853857" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/code" />
     <SUITE FILE_PATH="coverage/DMML2021_Google$LogisticRegression_v2.coverage" NAME="LogisticRegression.v2 Coverage Results" MODIFIED="1638784670618" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/code/Louis" />
-    <SUITE FILE_PATH="coverage/DMML2021_Google$main.coverage" NAME="main Coverage Results" MODIFIED="1639939839213" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/code" />
+    <SUITE FILE_PATH="coverage/DMML2021_Google$main.coverage" NAME="main Coverage Results" MODIFIED="1639941144406" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/code" />
     <SUITE FILE_PATH="coverage/DMML2021_Google$LogisticRegression.coverage" NAME="LogisticRegression Coverage Results" MODIFIED="1639735885269" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/code" />
     <SUITE FILE_PATH="coverage/DMML2021_Google$util.coverage" NAME="util Coverage Results" MODIFIED="1639735331238" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/code" />
   </component>

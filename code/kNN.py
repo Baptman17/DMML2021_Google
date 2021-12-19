@@ -1,14 +1,9 @@
-from numpy import vectorize
-from sklearn.metrics import precision_score
 from sklearn.model_selection import train_test_split
-from sklearn.linear_model import LogisticRegression
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.pipeline import Pipeline
 
 import util
-from util import get_training_data, get_tfidf_vector, evaluate, configs, get_unlabelled_test_data
-import pandas as pd
-from sklearn.metrics import confusion_matrix, accuracy_score, precision_score, recall_score, f1_score
+from util import get_training_data, get_tfidf_vector, evaluate
 import threading
 import time
 

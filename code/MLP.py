@@ -3,8 +3,6 @@ from sklearn.model_selection import train_test_split
 from sklearn.pipeline import Pipeline
 import util
 from util import get_training_data, get_tfidf_vector, evaluate
-from sklearn.metrics import accuracy_score
-import pandas as pd
 import threading
 import time
 
