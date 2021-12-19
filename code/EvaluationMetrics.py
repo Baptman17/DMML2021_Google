@@ -9,19 +9,19 @@ class EvaluationMetrics:
         self.__config = None
 
     def getPrecision(self):
-        return self.__precision
+        return self.__precision[0]
 
     def getRecall(self):
-        return self.__recall
+        return self.__recall[0]
 
     def getF1(self):
-        return self.__f1
+        return self.__f1[0]
 
     def getAccuracy(self):
-        return self.__accuracy
+        return self.__accuracy[0]
     
     def getConfMatrix(self):
-        return self.__confusion_matrix
+        return self.__confusion_matrix[0]
 
     def setConfig(self, config):
         self.__config = config

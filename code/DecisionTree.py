@@ -29,7 +29,7 @@ class DecisionTreeThread(threading.Thread):
         print("[DT]\t:\tSplitting data")
         X = df['sentence']
         y = df['difficulty']
-        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=1234, stratify=y)
+        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=0, stratify=y)
 
         bestMetrics = None
         configs = util.configs()
@@ -38,7 +38,7 @@ class DecisionTreeThread(threading.Thread):
             configId = f"config {index + 1}/{len(configs)}"
             print(f"[DT]\t:\t Starting with {configId}")
             tfidf_vector = get_tfidf_vector(config)
-            classifier = DecisionTreeClassifier(criterion='gini', max_depth=5, random_state=0, min_samples_leaf=2, max_features='auto')
+            classifier = DecisionTreeClassifier(criterion='gini', max_depth=5, random_state=0)
 
             pipe = Pipeline([('vectorizer', tfidf_vector),
                             ('classifier', classifier)])

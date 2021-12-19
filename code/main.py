@@ -38,7 +38,7 @@ class ReadmeGenerator:
         data.extend(["F1-score", self.__lr0.getF1(),self.__knn0.getF1(),self.__dt0.getF1(),self.__rf0.getF1()])
         data.extend(["Accuracy", self.__lr0.getAccuracy(),self.__knn0.getAccuracy(),self.__dt0.getAccuracy(),self.__rf0.getAccuracy()])
         self.__mdFile.new_table(columns=5, rows=5, text=data)
-        self.__mdFile.new_header(level=2, title="Result with Data Cleaning")
+        self.__mdFile.new_header(level=1, title="Result with Data Cleaning")
         data = ["/","Logistic regression", "kNN", "Decision Tree", "Random Forests", "MLP"]
         data.extend(["Precision", self.__lr.getPrecision(), self.__knn.getPrecision(),self.__dt.getPrecision(),self.__rf.getPrecision(),self.__mlp.getPrecision() if self.__mlp is not None else 0.4827])
         data.extend(["Recall", self.__lr.getRecall(),self.__knn.getRecall(),self.__dt.getRecall(),self.__rf.getRecall(),self.__mlp.getRecall() if self.__mlp is not None else 0.4854])
@@ -72,33 +72,33 @@ if __name__ == '__main__':
     rf_metrics0 = rfThread.join()
 
     print(lr_metrics0)
-    sns.heatmap(pd.DataFrame(lr_metrics0.getConfMatrix()[0]), annot=True, cmap='Oranges', fmt='.4g');
+    sns.heatmap(pd.DataFrame(lr_metrics0.getConfMatrix()), annot=True, cmap='Oranges', fmt='.4g');
     plt.savefig("LR_without_DC.png")
     plt.clf()
     plt.cla()
     plt.close()
     
     print(kNN_metrics0)
-    sns.heatmap(pd.DataFrame(kNN_metrics0.getConfMatrix()[0]), annot=True, cmap='Oranges', fmt='.4g');
+    sns.heatmap(pd.DataFrame(kNN_metrics0.getConfMatrix()), annot=True, cmap='Oranges', fmt='.4g');
     plt.savefig("KNN_without_DC.png")
     plt.clf()
     plt.cla()
     plt.close()
 
     print(dt_metrics0)
-    sns.heatmap(pd.DataFrame(dt_metrics0.getConfMatrix()[0]), annot=True, cmap='Oranges', fmt='.4g');
+    sns.heatmap(pd.DataFrame(dt_metrics0.getConfMatrix()), annot=True, cmap='Oranges', fmt='.4g');
     plt.savefig("DT_without_DC.png")
     plt.clf()
     plt.cla()
     plt.close()
 
     print(rf_metrics0)
-    sns.heatmap(pd.DataFrame(rf_metrics0.getConfMatrix()[0]), annot=True, cmap='Oranges', fmt='.4g');
+    sns.heatmap(pd.DataFrame(rf_metrics0.getConfMatrix()), annot=True, cmap='Oranges', fmt='.4g');
     plt.savefig("RF_without_DC.png")
     plt.clf()
     plt.cla()
     plt.close()
-    df = pd.DataFrame({'Accuracy' : [float(lr_metrics0.getAccuracy()[0]),float(kNN_metrics0.getAccuracy()[0]),float(dt_metrics0.getAccuracy()[0]),float(rf_metrics0.getAccuracy()[0])]}, index=["LR","kNN","DT","RF"])
+    df = pd.DataFrame({'Accuracy' : [float(lr_metrics0.getAccuracy()),float(kNN_metrics0.getAccuracy()),float(dt_metrics0.getAccuracy()),float(rf_metrics0.getAccuracy())]}, index=["LR","kNN","DT","RF"])
     df.plot()
     plt.savefig("Graph_Acc_without_DC.png")
     

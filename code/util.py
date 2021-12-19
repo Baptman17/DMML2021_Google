@@ -10,6 +10,7 @@ from EvaluationMetrics import EvaluationMetrics
 stop_words = spacy.lang.fr.stop_words.STOP_WORDS
 sp = spacy.load('fr_core_news_sm')
 punctuations = string.punctuation
+numbers = "0123456789"
 
 
 def get_training_data():
@@ -27,13 +28,26 @@ def spacy_tokenizer(sentence):
     mytokens = sp(sentence)
 
     # Lemmatize each token and convert each token into lowercase
-    mytokens = [ word.lemma_.lower().strip() for word in mytokens ]
+    mytokens = [ word.lemma_.lower().strip() if word.lemma_ != "-PRON-" else word.lower_ for word in mytokens ]
 
     # Remove stop words and punctuation
     mytokens = [ word for word in mytokens if word not in stop_words and word not in punctuations ]
 
+    # Remove anonymous dates and people
+    mytokens = [ word.replace('xx/', '').replace('xxxx/', '').replace('xx', '') for word in mytokens ]
+    mytokens = [ word for word in mytokens if word not in ["xxxx", "xx", ""]]
+
+    # Remove sufix like ".[1" in "experience.[1"
+    mytokens_2 = []
+    for word in mytokens:
+      for char in word:
+        if (char in punctuations) or (char in numbers):
+          word = word.replace(char, "")
+      if word != "":
+        mytokens_2.append(word)
+
     # Return preprocessed list of tokens
-    return mytokens
+    return mytokens_2
 
 def spacy_tokenizer_without_dc(sentence):
     # Create token object, which is used to create documents with linguistic annotations.
