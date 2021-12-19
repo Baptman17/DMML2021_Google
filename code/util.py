@@ -35,11 +35,21 @@ def spacy_tokenizer(sentence):
     # Return preprocessed list of tokens
     return mytokens
 
+def spacy_tokenizer_without_dc(sentence):
+    # Create token object, which is used to create documents with linguistic annotations.
+    mytokens = sp(sentence)
+
+    # Return preprocessed list of tokens
+    return mytokens
+
 
 def get_tfidf_vector(config):
     return TfidfVectorizer(tokenizer=spacy_tokenizer,
                                    ngram_range=config[0],
                                    min_df=config[1], max_df=config[2], analyzer=config[3])
+
+def get_tfidf_vector_without_dc():
+    return TfidfVectorizer(tokenizer=spacy_tokenizer_without_dc)
 
 
 def configs():
