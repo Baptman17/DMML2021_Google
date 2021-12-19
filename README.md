@@ -2,6 +2,8 @@
 DMML 2021 Project : Detecting the difficulty level of French texts
 ==================================================================
 
+##### *This file is auto-generated*
+
 # Result without Data Cleaning
 
 |/|Logistic regression|kNN|Decision Tree|Random Forests|
