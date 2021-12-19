@@ -9,7 +9,7 @@ from EvaluationMetrics import EvaluationMetrics
 import time
 import seaborn as sns
 import matplotlib.pyplot as plt
-
+import sys
 
 class ReadmeGenerator:
     def __init__(self, lr0: EvaluationMetrics = None, knn0: EvaluationMetrics = None, dt0: EvaluationMetrics = None, rf0: EvaluationMetrics = None, lr: EvaluationMetrics = None, knn: EvaluationMetrics = None, dt: EvaluationMetrics = None, rf: EvaluationMetrics = None, mlp: EvaluationMetrics = None):
@@ -23,7 +23,7 @@ class ReadmeGenerator:
         self.__rf = rf
         self.__mlp = mlp
         #if running on Mac, change filename to "../Readme"
-        self.__mdFile = MdUtils(file_name='DMML2021_Google/README',title='DMML 2021 Project : Detecting the difficulty level of French texts')
+        self.__mdFile = MdUtils(file_name='README' if sys.platform == "win32" else "../README",title='DMML 2021 Project : Detecting the difficulty level of French texts')
 
     def generate_readme(self):
         self.__mdFile.new_header(level=1, title="Result without Data Cleaning")

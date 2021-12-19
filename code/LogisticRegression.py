@@ -2,9 +2,8 @@ import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
 from sklearn.pipeline import Pipeline
-from code.util import get_unlabelled_test_data
 import util
-from util import get_training_data, get_tfidf_vector, evaluate
+from util import get_training_data, get_tfidf_vector, evaluate, get_unlabelled_test_data
 import threading
 import time
 
