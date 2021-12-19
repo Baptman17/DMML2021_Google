@@ -22,6 +22,7 @@ class ReadmeGenerator:
         self.__dt = dt
         self.__rf = rf
         self.__mlp = mlp
+        #if running on Mac, change filename to "../Readme"
         self.__mdFile = MdUtils(file_name='DMML2021_Google/README',title='DMML 2021 Project : Detecting the difficulty level of French texts')
 
     def generate_readme(self):
@@ -67,34 +68,35 @@ if __name__ == '__main__':
 
     print(lr_metrics)
     sns.heatmap(pd.DataFrame(lr_metrics.getConfMatrix()), annot=True, cmap='Oranges', fmt='.4g');
-    plt.savefig("LR_without_DC.png")
+    plt.savefig("img/LR_without_DC.png")
     plt.clf()
     plt.cla()
     plt.close()
     
     print(kNN_metrics)
     sns.heatmap(pd.DataFrame(kNN_metrics.getConfMatrix()), annot=True, cmap='Oranges', fmt='.4g');
-    plt.savefig("KNN_without_DC.png")
+    plt.savefig("img/KNN_without_DC.png")
     plt.clf()
     plt.cla()
     plt.close()
 
     print(dt_metrics)
     sns.heatmap(pd.DataFrame(dt_metrics.getConfMatrix()), annot=True, cmap='Oranges', fmt='.4g');
-    plt.savefig("DT_without_DC.png")
+    plt.savefig("img/DT_without_DC.png")
     plt.clf()
     plt.cla()
     plt.close()
 
     print(rf_metrics)
     sns.heatmap(pd.DataFrame(rf_metrics.getConfMatrix()), annot=True, cmap='Oranges', fmt='.4g');
-    plt.savefig("RF_without_DC.png")
+    plt.savefig("img/RF_without_DC.png")
     plt.clf()
     plt.cla()
     plt.close()
+
     df = pd.DataFrame({'Accuracy' : [float(lr_metrics.getAccuracy()),float(kNN_metrics.getAccuracy()),float(dt_metrics.getAccuracy()),float(rf_metrics.getAccuracy())]}, index=["LR","kNN","DT","RF"])
     df.plot()
-    plt.savefig("Graph_Acc_without_DC.png")
+    plt.savefig("img/Graph_Acc_without_DC.png")
 
     print(f"[Main]\t:\tTotal execution time without data cleaning : {time.time() - start_time:.4f} seconds")
 

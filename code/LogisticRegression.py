@@ -1,6 +1,8 @@
+import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
 from sklearn.pipeline import Pipeline
+from code.util import get_unlabelled_test_data
 import util
 from util import get_training_data, get_tfidf_vector, evaluate
 import threading
@@ -35,6 +37,7 @@ class LogisticRegressionThread(threading.Thread):
         X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=0, stratify=y)
 
         bestMetrics = None
+        bestModel = None
         configs = util.configs()
         for index, config in enumerate(configs):
             config_start_time = time.time()
@@ -59,9 +62,16 @@ class LogisticRegressionThread(threading.Thread):
                 bestMetrics = metrics
             else:
                 if metrics > bestMetrics:
+                    bestModel = pipe
                     bestMetrics = metrics
             print(f"[LR] ({configId})\t:\tEnd of evaluation in {time.time() - config_start_time:.4f} seconds")
+        df_final = pd.DataFrame()
+        df_test = get_unlabelled_test_data()
+        df_final['id'] = list(range(0, len(df_test)))
+        df_final['difficulty'] = bestModel.predict(df_test['sentence'])
+        df_final.to_csv("submissions/submission_LR_with_DC.csv", index = False)
         self.__bestMetrics = bestMetrics
+        
         print(f"[LR]\t:\tDone in {time.time() - start_time:.4f} seconds")
 
     def get_metrics_without_dc(self):
@@ -74,8 +84,6 @@ class LogisticRegressionThread(threading.Thread):
         X = df['sentence']
         y = df['difficulty']
         X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=0, stratify=y)
-
-        bestMetrics = None
         config_start_time = time.time()
         tfidf_vector = get_tfidf_vector()
         classifier = LogisticRegression()
@@ -91,10 +99,10 @@ class LogisticRegressionThread(threading.Thread):
 
         print(f"[LR] Evaluating the prediction")
         metrics = evaluate(y_test, y_pred)
-        if bestMetrics is None:
-            bestMetrics = metrics
-        else:
-            if metrics > bestMetrics:
-                bestMetrics = metrics
         print(f"[LR] End of evaluation without data cleaning in {time.time() - config_start_time:.4f} seconds")
-        self.__bestMetrics = bestMetrics
+        df_final = pd.DataFrame()
+        df_test = get_unlabelled_test_data()
+        df_final['id'] = list(range(0, len(df_test)))
+        df_final['difficulty'] = pipe.predict(df_test['sentence'])
+        df_final.to_csv("submissions/submission_LR_without_DC.csv", index = False)
+        self.__bestMetrics = metrics
