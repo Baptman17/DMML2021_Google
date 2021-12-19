@@ -26,6 +26,7 @@ class ReadmeGenerator:
         self.__mdFile = MdUtils(file_name='README' if sys.platform == "win32" else "../README",title='DMML 2021 Project : Detecting the difficulty level of French texts')
 
     def generate_readme(self):
+        self.__mdFile.new_header(level=5, title="*This file is auto-generated*")
         self.__mdFile.new_header(level=1, title="Result without Data Cleaning")
         data = ["/","Logistic regression", "kNN", "Decision Tree", "Random Forests"]
         data.extend(["Precision", self.__lr0.getPrecision(), self.__knn0.getPrecision(),self.__dt0.getPrecision(),self.__rf0.getPrecision()])
