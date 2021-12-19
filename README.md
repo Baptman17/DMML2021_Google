@@ -6,10 +6,10 @@ DMML 2021 Project : Detecting the difficulty level of French texts
 
 |/|Logistic regression|kNN|Decision Tree|Random Forests|
 | :---: | :---: | :---: | :---: | :---: |
-|Precision|0.4788|0.3778|0.3317|0.4167|
-|Recall|0.4833|0.351|0.3333|0.4208|
-|F1-score|0.4785|0.3248|0.3311|0.4103|
-|Accuracy|0.4833|0.351|0.3333|0.4208|
+|Precision|0.4788|0.3778|0.3292|0.452|
+|Recall|0.4833|0.351|0.3344|0.4521|
+|F1-score|0.4785|0.3248|0.33|0.4436|
+|Accuracy|0.4833|0.351|0.3344|0.4521|
 
 # Result with Data Cleaning
 
