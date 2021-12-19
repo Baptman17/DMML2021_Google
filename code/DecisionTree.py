@@ -61,9 +61,9 @@ class DecisionTreeThread(threading.Thread):
             else:
                 if metrics > bestMetrics:
                     bestMetrics = metrics
-            print(f"[DT] ({configId})\t:\tEnd of evaluation in {time.time() - config_start_time}")
+            print(f"[DT] ({configId})\t:\tEnd of evaluation in {time.time() - config_start_time:.4f} seconds")
         self.__bestMetrics = bestMetrics
-        print(f"[DT]\t:\tDone in {time.time() - start_time}")
+        print(f"[DT]\t:\tDone in {time.time() - start_time:.4f} seconds")
 
     def get_metrics_without_dc(self):
         print("[DT] Getting data")
@@ -97,6 +97,5 @@ class DecisionTreeThread(threading.Thread):
         else:
             if metrics > bestMetrics:
                 bestMetrics = metrics
-        print(f"[DT] End of evaluation in {time.time() - config_start_time}")
+        print(f"[DT] End of evaluation without data cleaning in {time.time() - config_start_time:.4f} seconds")
         self.__bestMetrics = bestMetrics
-        print(f"[DT] Done in {time.time() - start_time}")

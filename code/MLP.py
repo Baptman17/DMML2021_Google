@@ -60,6 +60,6 @@ class MLPThread(threading.Thread):
             else:
                 if metrics > bestMetrics:
                     bestMetrics = metrics
-            print(f"[MLP] ({configId})\t:\tEnd of evaluation in {time.time() - config_start_time}")
+            print(f"[MLP] ({configId})\t:\tEnd of evaluation in {time.time() - config_start_time:.4f} seconds")
         self.__bestMetrics = bestMetrics
-        print(f"[MLP]\t:\tDone in {time.time() - start_time}")
+        print(f"[MLP]\t:\tDone in {time.time() - start_time:.4f} seconds")

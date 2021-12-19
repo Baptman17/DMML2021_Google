@@ -60,9 +60,9 @@ class LogisticRegressionThread(threading.Thread):
             else:
                 if metrics > bestMetrics:
                     bestMetrics = metrics
-            print(f"[LR] ({configId})\t:\tEnd of evaluation in {time.time() - config_start_time}")
+            print(f"[LR] ({configId})\t:\tEnd of evaluation in {time.time() - config_start_time:.4f} seconds")
         self.__bestMetrics = bestMetrics
-        print(f"[LR]\t:\tDone in {time.time() - start_time}")
+        print(f"[LR]\t:\tDone in {time.time() - start_time:.4f} seconds")
 
     def get_metrics_without_dc(self):
         print("[LR] Getting data")
@@ -96,6 +96,5 @@ class LogisticRegressionThread(threading.Thread):
         else:
             if metrics > bestMetrics:
                 bestMetrics = metrics
-        print(f"[LR] End of evaluation in {time.time() - config_start_time}")
+        print(f"[LR] End of evaluation without data cleaning in {time.time() - config_start_time:.4f} seconds")
         self.__bestMetrics = bestMetrics
-        print(f"[LR] Done in {time.time() - start_time}")

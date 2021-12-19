@@ -46,7 +46,7 @@ class ReadmeGenerator:
 if __name__ == '__main__':
 
     #without data cleaning
-
+    print(f"[Main] Start evaluation without data cleaning")
     start_time = time.time()
     lrThread = LogisticRegressionThread(False)
     lrThread.start()
@@ -96,10 +96,10 @@ if __name__ == '__main__':
     df.plot()
     plt.savefig("Graph_Acc_without_DC.png")
 
-    print(f"[Main]\t:\tTotal execution time : {time.time() - start_time}")
+    print(f"[Main]\t:\tTotal execution time without data cleaning : {time.time() - start_time:.4f} seconds")
 
     #with data cleaning
-
+    print(f"[Main] Start evaluation with data cleaning")
     start_time = time.time()
     lrThreadDC = LogisticRegressionThread(True)
     lrThreadDC.start()
@@ -126,7 +126,7 @@ if __name__ == '__main__':
 
     rg = ReadmeGenerator(lr_metrics, kNN_metrics, dt_metrics, rf_metrics, lr_metricsDC, kNN_metricsDC, dt_metricsDC, rf_metricsDC)
     rg.generate_readme()
-    print(f"[Main]\t:\tTotal execution time : {time.time() - start_time}")
+    print(f"[Main]\t:\tTotal execution time with data cleaning : {time.time() - start_time:.4f} seconds")
 
 
 

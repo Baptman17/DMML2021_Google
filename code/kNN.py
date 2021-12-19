@@ -64,9 +64,9 @@ class KNNThread(threading.Thread):
             else:
                 if metrics > bestMetrics:
                     bestMetrics = metrics
-            print(f"[kNN] ({configId})\t:\tEnd of evaluation in {time.time() - config_start_time}")
+            print(f"[kNN] ({configId})\t:\tEnd of evaluation in {time.time() - config_start_time:.4f} seconds")
         self.__bestMetrics = bestMetrics
-        print(f"[kNN]\t:\tDone in {time.time() - start_time}")
+        print(f"[kNN]\t:\tDone in {time.time() - start_time:.4f} seconds")
 
     def get_metrics_without_dc(self):
         print("[kNN] Getting data")
@@ -98,6 +98,5 @@ class KNNThread(threading.Thread):
         else:
             if metrics > bestMetrics:
                 bestMetrics = metrics
-        print(f"[kNN] End of evaluation in {time.time() - config_start_time}")
+        print(f"[kNN] End of evaluation without data cleaning in {time.time() - config_start_time:.4f} seconds")
         self.__bestMetrics = bestMetrics
-        print(f"[kNN] Done in {time.time() - start_time}")
