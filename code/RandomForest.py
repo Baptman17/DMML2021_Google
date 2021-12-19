@@ -42,7 +42,8 @@ class RandomForestThread(threading.Thread):
             configId = f"config {index + 1}/{len(configs)}"
             print(f"[RF]\t:\t Starting with {configId}")
             tfidf_vector = get_tfidf_vector(config)
-            classifier = RandomForestClassifier(n_estimators=2000)
+            #classifier = RandomForestClassifier(n_estimators=2000)
+            classifier = RandomForestClassifier()
 
             pipe = Pipeline([('vectorizer', tfidf_vector),
                              ('classifier', classifier)])
