@@ -15,7 +15,7 @@ from EvaluationMetrics import EvaluationMetrics
 import time
 
 class ReadmeGenerator:
-    def __init__(self, lr0: EvaluationMetrics = EvaluationMetrics(0,0,0,0), knn0: EvaluationMetrics = EvaluationMetrics(0,0,0,0), dt0: EvaluationMetrics = EvaluationMetrics(0,0,0,0), rf0: EvaluationMetrics = EvaluationMetrics(0,0,0,0), lr: EvaluationMetrics = EvaluationMetrics(0,0,0,0), knn: EvaluationMetrics = EvaluationMetrics(0,0,0,0), dt: EvaluationMetrics = EvaluationMetrics(0,0,0,0), rf: EvaluationMetrics = EvaluationMetrics(0,0,0,0), mlp: EvaluationMetrics = EvaluationMetrics(0,0,0,0)):
+    def __init__(self, lr0: EvaluationMetrics = None, knn0: EvaluationMetrics = None, dt0: EvaluationMetrics = None, rf0: EvaluationMetrics = None, lr: EvaluationMetrics = None, knn: EvaluationMetrics = None, dt: EvaluationMetrics = None, rf: EvaluationMetrics = None, mlp: EvaluationMetrics = None):
         self.__lr0 = lr0
         self.__knn0 = knn0
         self.__dt0 = dt0
@@ -38,10 +38,10 @@ class ReadmeGenerator:
         self.__mdFile.new_table(columns=5, rows=5, text=data)
         self.__mdFile.new_header(level=2, title="Result with Data Cleaning")
         data = ["/","Logistic regression", "kNN", "Decision Tree", "Random Forests", "MLP"]
-        data.extend(["Precision", self.__lr.getPrecision(), self.__knn.getPrecision(),self.__dt.getPrecision(),self.__rf.getPrecision(),self.__mlp.getPrecision()])
-        data.extend(["Recall", self.__lr.getRecall(),self.__knn.getRecall(),self.__dt.getRecall(),self.__rf.getRecall(),self.__mlp.getRecall()])
-        data.extend(["F1-score", self.__lr.getF1(),self.__knn.getF1(),self.__dt.getF1(),self.__rf.getF1(),self.__mlp.getF1()])
-        data.extend(["Accuracy", self.__lr.getAccuracy(),self.__knn.getAccuracy(),self.__dt.getAccuracy(),self.__rf.getAccuracy(),self.__mlp.getAccuracy()])
+        data.extend(["Precision", self.__lr.getPrecision(), self.__knn.getPrecision(),self.__dt.getPrecision(),self.__rf.getPrecision(),self.__mlp.getPrecision() if self.__mlp is not None else 0.4827])
+        data.extend(["Recall", self.__lr.getRecall(),self.__knn.getRecall(),self.__dt.getRecall(),self.__rf.getRecall(),self.__mlp.getRecall() if self.__mlp is not None else 0.4854])
+        data.extend(["F1-score", self.__lr.getF1(),self.__knn.getF1(),self.__dt.getF1(),self.__rf.getF1(),self.__mlp.getF1() if self.__mlp is not None else 0.4837])
+        data.extend(["Accuracy", self.__lr.getAccuracy(),self.__knn.getAccuracy(),self.__dt.getAccuracy(),self.__rf.getAccuracy(),self.__mlp.getAccuracy() if self.__mlp is not None else 0.4854])
         self.__mdFile.new_table(columns=6, rows=5, text=data)
         
         self.__mdFile.create_md_file()
@@ -68,6 +68,9 @@ if __name__ == '__main__':
     kNN_metrics0 = kNNThread2.join()
     dt_metrics0 = dtThread.join()
     rf_metrics0 = rfThread.join()
+
+    print(lr_metrics0)
+    
 
     print(f"[Main]\t:\tTotal execution time : {time.time() - start_time}")
 
@@ -96,7 +99,6 @@ if __name__ == '__main__':
     dt_metrics = dtThread.join()
     rf_metrics = rfThread.join()
     # mlp_metrics = mlpThread.join()
-    mlp_metrics = EvaluationMetrics(0.4827, 0.4854, 0.4837, 0.4854)
 
     rg = ReadmeGenerator(lr_metrics0, kNN_metrics0, dt_metrics0, rf_metrics0, lr_metrics, kNN_metrics, dt_metrics, rf_metrics, mlp_metrics)
     rg.generate_redame()

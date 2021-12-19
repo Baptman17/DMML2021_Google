@@ -70,8 +70,4 @@ def configs():
 
 
 def evaluate(true, pred):
-    precision = precision_score(true, pred, average='weighted')
-    recall = recall_score(true, pred, average='weighted')
-    f1 = f1_score(true, pred, average='weighted')
-    accuracy = accuracy_score(true, pred)
-    return EvaluationMetrics(precision, recall, f1, accuracy)
+    return EvaluationMetrics(true, pred)

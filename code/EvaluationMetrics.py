@@ -1,9 +1,11 @@
+from sklearn.metrics import precision_score, recall_score, f1_score, confusion_matrix, accuracy_score
 class EvaluationMetrics:
-    def __init__(self, precision, recall, f1, accuracy):
-        self.__precision = round(precision,4)
-        self.__recall = round(recall,4),
-        self.__f1 = round(f1,4)
-        self.__accuracy = round(accuracy,4)
+    def __init__(self, true,pred):
+        self.__precision = round(precision_score(true, pred, average='weighted'),4),
+        self.__recall = round(recall_score(true, pred, average='weighted'),4),
+        self.__f1 = round(f1_score(true, pred, average='weighted'),4),
+        self.__accuracy = round(accuracy_score(true, pred),4),
+        self.__confusion_matrix = confusion_matrix(true,pred),
         self.__config = None
 
     def getPrecision(self):
@@ -17,6 +19,9 @@ class EvaluationMetrics:
 
     def getAccuracy(self):
         return self.__accuracy
+    
+    def getConfMatrix(self):
+        return self.__confusion_matrix
 
     def setConfig(self, config):
         self.__config = config
@@ -25,8 +30,11 @@ class EvaluationMetrics:
         return self.__accuracy > other.getAccuracy()
 
     def __str__(self):
-        return(f"Precision\t{self.__precision}"
+        txtstr = (f"Precision\t{self.__precision}"
               f"\nRecall\t{self.__recall}"
               f"\nF1-score\t{self.__f1}"
               f"\nAccuracy\t{self.__accuracy}"
-              f"\nConfig\t{self.__config}")
+              f"\nConfusion Matrix\n{self.__confusion_matrix}")
+        if self.__config is not None:
+            txtstr = txtstr + f"\nConfig\t{self.__config}"
+        return txtstr 
