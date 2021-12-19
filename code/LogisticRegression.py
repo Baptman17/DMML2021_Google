@@ -6,7 +6,7 @@ import util
 from util import get_training_data, get_tfidf_vector, evaluate, get_unlabelled_test_data
 import threading
 import time
-
+import sys
 
 class LogisticRegressionThread(threading.Thread):
     def __init__(self, with_dc : bool):
@@ -68,7 +68,8 @@ class LogisticRegressionThread(threading.Thread):
         df_test = get_unlabelled_test_data()
         df_final['id'] = list(range(0, len(df_test)))
         df_final['difficulty'] = bestModel.predict(df_test['sentence'])
-        df_final.to_csv("submissions/submission_LR_with_DC.csv", index = False)
+        path = "submissions/submission_LR_with_DC.csv" if sys.platform == "win32" else "../submissions/sumbission_LR_with_DC.csv"
+        df_final.to_csv(path, index = False)
         self.__bestMetrics = bestMetrics
         
         print(f"[LR]\t:\tDone in {time.time() - start_time:.4f} seconds")
@@ -103,5 +104,6 @@ class LogisticRegressionThread(threading.Thread):
         df_test = get_unlabelled_test_data()
         df_final['id'] = list(range(0, len(df_test)))
         df_final['difficulty'] = pipe.predict(df_test['sentence'])
-        df_final.to_csv("submissions/submission_LR_without_DC.csv", index = False)
+        path = "submissions/submission_LR_without_DC.csv" if sys.platform == "win32" else "../submissions/submission_LR_without_DC.csv"
+        df_final.to_csv(path, index = False)
         self.__bestMetrics = metrics
