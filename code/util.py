@@ -1,9 +1,7 @@
 import pandas as pd
 import spacy
-from sklearn.metrics import precision_score, recall_score, f1_score, confusion_matrix, accuracy_score
 from spacy.lang.fr.stop_words import STOP_WORDS
-from spacy.lang.fr import French
-from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
+from sklearn.feature_extraction.text import  TfidfVectorizer
 import string
 from EvaluationMetrics import EvaluationMetrics
 
@@ -59,14 +57,13 @@ def spacy_tokenizer_without_dc(sentence):
     return mytokens
 
 
-def get_tfidf_vector(config):
-    return TfidfVectorizer(tokenizer=spacy_tokenizer,
-                                   ngram_range=config[0],
-                                   min_df=config[1], max_df=config[2], analyzer=config[3])
-
-def get_tfidf_vector_without_dc():
-    return TfidfVectorizer(tokenizer=spacy_tokenizer_without_dc)
-
+def get_tfidf_vector(config=None, with_dc: bool = False):
+    if with_dc:
+        return TfidfVectorizer(tokenizer=spacy_tokenizer,
+                                       ngram_range=config[0],
+                                       min_df=config[1], max_df=config[2], analyzer=config[3])
+    else:
+        return TfidfVectorizer(tokenizer=spacy_tokenizer_without_dc)
 
 def configs():
     models = list()

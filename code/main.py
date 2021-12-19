@@ -1,24 +1,18 @@
 import pandas as pd
-from DecisionTree_without_dc import DecisionTreeThread_without_dc
-from LogisticRegression_without_dc import LogisticRegressionThread_without_dc
-from RandomForest_without_dc import RandomForestThread_without_dc
-from kNN_without_dc import kNNThread_without_dc
-from util import get_training_data
 from LogisticRegression import LogisticRegressionThread
-from kNN import kNNThread
+from kNN import KNNThread
 from DecisionTree import DecisionTreeThread
 from RandomForest import RandomForestThread
 from MLP import MLPThread
-from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
 from mdutils.mdutils import MdUtils
-import threading
 from EvaluationMetrics import EvaluationMetrics
 import time
 import seaborn as sns
 import matplotlib.pyplot as plt
 
+
 class ReadmeGenerator:
-    def __init__(self, lr0: EvaluationMetrics = None, knn0: EvaluationMetrics = None, dt0: EvaluationMetrics = None, rf0: EvaluationMetrics = None, lr: EvaluationMetrics = None, knn: EvaluationMetrics = None, dt: EvaluationMetrics = None, rf: EvaluationMetrics = None):
+    def __init__(self, lr0: EvaluationMetrics = None, knn0: EvaluationMetrics = None, dt0: EvaluationMetrics = None, rf0: EvaluationMetrics = None, lr: EvaluationMetrics = None, knn: EvaluationMetrics = None, dt: EvaluationMetrics = None, rf: EvaluationMetrics = None, mlp: EvaluationMetrics = None):
         self.__lr0 = lr0
         self.__knn0 = knn0
         self.__dt0 = dt0
@@ -27,7 +21,7 @@ class ReadmeGenerator:
         self.__knn = knn
         self.__dt = dt
         self.__rf = rf
-        self.__mlp = None
+        self.__mlp = mlp
         self.__mdFile = MdUtils(file_name='DMML2021_Google/README',title='DMML 2021 Project : Detecting the difficulty level of French texts')
 
     def generate_readme(self):
@@ -54,84 +48,83 @@ if __name__ == '__main__':
     #without data cleaning
 
     start_time = time.time()
-    lrThread = LogisticRegressionThread_without_dc()
+    lrThread = LogisticRegressionThread(False)
     lrThread.start()
 
-    kNNThread2 = kNNThread_without_dc()
-    kNNThread2.start()
+    kNNThread = KNNThread(False)
+    kNNThread.start()
 
-    dtThread = DecisionTreeThread_without_dc()
+    dtThread = DecisionTreeThread(False)
     dtThread.start()
 
-    rfThread = RandomForestThread_without_dc()
+    rfThread = RandomForestThread(False)
     rfThread.start()
 
-    lr_metrics0 = lrThread.join()
-    kNN_metrics0 = kNNThread2.join()
-    dt_metrics0 = dtThread.join()
-    rf_metrics0 = rfThread.join()
+    lr_metrics = lrThread.join()
+    kNN_metrics = kNNThread.join()
+    dt_metrics = dtThread.join()
+    rf_metrics = rfThread.join()
 
-    print(lr_metrics0)
-    sns.heatmap(pd.DataFrame(lr_metrics0.getConfMatrix()), annot=True, cmap='Oranges', fmt='.4g');
+    print(lr_metrics)
+    sns.heatmap(pd.DataFrame(lr_metrics.getConfMatrix()), annot=True, cmap='Oranges', fmt='.4g');
     plt.savefig("LR_without_DC.png")
     plt.clf()
     plt.cla()
     plt.close()
     
-    print(kNN_metrics0)
-    sns.heatmap(pd.DataFrame(kNN_metrics0.getConfMatrix()), annot=True, cmap='Oranges', fmt='.4g');
+    print(kNN_metrics)
+    sns.heatmap(pd.DataFrame(kNN_metrics.getConfMatrix()), annot=True, cmap='Oranges', fmt='.4g');
     plt.savefig("KNN_without_DC.png")
     plt.clf()
     plt.cla()
     plt.close()
 
-    print(dt_metrics0)
-    sns.heatmap(pd.DataFrame(dt_metrics0.getConfMatrix()), annot=True, cmap='Oranges', fmt='.4g');
+    print(dt_metrics)
+    sns.heatmap(pd.DataFrame(dt_metrics.getConfMatrix()), annot=True, cmap='Oranges', fmt='.4g');
     plt.savefig("DT_without_DC.png")
     plt.clf()
     plt.cla()
     plt.close()
 
-    print(rf_metrics0)
-    sns.heatmap(pd.DataFrame(rf_metrics0.getConfMatrix()), annot=True, cmap='Oranges', fmt='.4g');
+    print(rf_metrics)
+    sns.heatmap(pd.DataFrame(rf_metrics.getConfMatrix()), annot=True, cmap='Oranges', fmt='.4g');
     plt.savefig("RF_without_DC.png")
     plt.clf()
     plt.cla()
     plt.close()
-    df = pd.DataFrame({'Accuracy' : [float(lr_metrics0.getAccuracy()),float(kNN_metrics0.getAccuracy()),float(dt_metrics0.getAccuracy()),float(rf_metrics0.getAccuracy())]}, index=["LR","kNN","DT","RF"])
+    df = pd.DataFrame({'Accuracy' : [float(lr_metrics.getAccuracy()),float(kNN_metrics.getAccuracy()),float(dt_metrics.getAccuracy()),float(rf_metrics.getAccuracy())]}, index=["LR","kNN","DT","RF"])
     df.plot()
     plt.savefig("Graph_Acc_without_DC.png")
-    
 
     print(f"[Main]\t:\tTotal execution time : {time.time() - start_time}")
 
     #with data cleaning
 
     start_time = time.time()
-    lrThread = LogisticRegressionThread()
-    lrThread.start()
+    lrThreadDC = LogisticRegressionThread(True)
+    lrThreadDC.start()
 
-    kNNThread2 = kNNThread()
-    kNNThread2.start()
+    kNNThreadDC = KNNThread(True)
+    kNNThreadDC.start()
 
-    dtThread = DecisionTreeThread()
-    dtThread.start()
+    dtThreadDC = DecisionTreeThread(True)
+    dtThreadDC.start()
 
-    rfThread = RandomForestThread()
-    rfThread.start()
+    rfThreadDC = RandomForestThread(True)
+    rfThreadDC.start()
 
     # It takes about 6 hours to run the MLP classificator
     # Last metrics found were 0.4827, 0.4854, 0.4837 and 0.4854
     # mlpThread = MLPThread()
     # mlpThread.start()
 
-    lr_metrics = lrThread.join()
-    kNN_metrics = kNNThread2.join()
-    dt_metrics = dtThread.join()
-    rf_metrics = rfThread.join()
+    lr_metricsDC = lrThreadDC.join()
+    kNN_metricsDC = kNNThreadDC.join()
+    dt_metricsDC = dtThreadDC.join()
+    rf_metricsDC = rfThreadDC.join()
     # mlp_metrics = mlpThread.join()
 
-    rg = ReadmeGenerator(lr_metrics0, kNN_metrics0, dt_metrics0, rf_metrics0, lr_metrics, kNN_metrics, dt_metrics, rf_metrics)
+    rg = ReadmeGenerator(lr_metrics, kNN_metrics, dt_metrics, rf_metrics, lr_metricsDC, kNN_metricsDC, dt_metricsDC, rf_metricsDC)
     rg.generate_readme()
     print(f"[Main]\t:\tTotal execution time : {time.time() - start_time}")
 

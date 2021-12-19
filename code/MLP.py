@@ -38,7 +38,7 @@ class MLPThread(threading.Thread):
             config_start_time = time.time()
             configId = f"config {index + 1}/{len(configs)}"
             print(f"[MLP]\t:\t Starting with {configId}")
-            tfidf_vector = get_tfidf_vector(config)
+            tfidf_vector = get_tfidf_vector(config=config, with_dc=True)
             classifier = MLPClassifier(max_iter=10000,
                                        activation="tanh",
                                        solver="sgd")
