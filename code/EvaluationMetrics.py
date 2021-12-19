@@ -25,12 +25,6 @@ class EvaluationMetrics:
     def getConfMatrix(self):
         return self.__confusion_matrix[0]
 
-    def getSubFile(self):
-        df_final = pd.DataFrame()
-        df_final['id'] = list(range(0, len(df_test)))
-        df_final['difficulty'] = y_pred_test
-        df_final.to_csv("submission_LRpv.csv", index = False)
-
     def setConfig(self, config):
         self.__config = config
 
