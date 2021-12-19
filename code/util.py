@@ -39,6 +39,8 @@ def spacy_tokenizer_without_dc(sentence):
     # Create token object, which is used to create documents with linguistic annotations.
     mytokens = sp(sentence)
 
+    mytokens = [ word.lemma_.lower().strip() for word in mytokens ]
+
     # Return preprocessed list of tokens
     return mytokens
 

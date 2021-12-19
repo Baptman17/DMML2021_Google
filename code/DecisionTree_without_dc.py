@@ -22,7 +22,7 @@ class DecisionTreeThread_without_dc(threading.Thread):
         return self.__bestMetrics
 
     def get_metrics(self):
-        print("[DT]\t:\tGetting data")
+        print("[DT] Getting data")
         start_time = time.time()
         df = get_training_data()
         df["difficulty"] = df["difficulty"].astype("category")

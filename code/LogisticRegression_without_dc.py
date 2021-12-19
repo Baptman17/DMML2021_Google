@@ -42,7 +42,7 @@ class LogisticRegressionThread_without_dc(threading.Thread):
         classifier = LogisticRegression()
 
         pipe = Pipeline([('vectorizer', tfidf_vector),
-                            ('classifier', classifier)])
+                        ('classifier', classifier)])
 
         print(f"[LR] Fitting the model")
         pipe.fit(X_train, y_train)

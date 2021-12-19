@@ -1,3 +1,4 @@
+import pandas as pd
 from DecisionTree_without_dc import DecisionTreeThread_without_dc
 from LogisticRegression_without_dc import LogisticRegressionThread_without_dc
 from RandomForest_without_dc import RandomForestThread_without_dc
@@ -13,9 +14,11 @@ from mdutils.mdutils import MdUtils
 import threading
 from EvaluationMetrics import EvaluationMetrics
 import time
+import seaborn as sns
+import matplotlib.pyplot as plt
 
 class ReadmeGenerator:
-    def __init__(self, lr0: EvaluationMetrics = None, knn0: EvaluationMetrics = None, dt0: EvaluationMetrics = None, rf0: EvaluationMetrics = None, lr: EvaluationMetrics = None, knn: EvaluationMetrics = None, dt: EvaluationMetrics = None, rf: EvaluationMetrics = None, mlp: EvaluationMetrics = None):
+    def __init__(self, lr0: EvaluationMetrics = None, knn0: EvaluationMetrics = None, dt0: EvaluationMetrics = None, rf0: EvaluationMetrics = None, lr: EvaluationMetrics = None, knn: EvaluationMetrics = None, dt: EvaluationMetrics = None, rf: EvaluationMetrics = None):
         self.__lr0 = lr0
         self.__knn0 = knn0
         self.__dt0 = dt0
@@ -24,12 +27,11 @@ class ReadmeGenerator:
         self.__knn = knn
         self.__dt = dt
         self.__rf = rf
-        self.__mlp = mlp
-        self.__mdFile = MdUtils(file_name="../README")
+        self.__mlp = None
+        self.__mdFile = MdUtils(file_name='DMML2021_Google/README',title='DMML 2021 Project : Detecting the difficulty level of French texts')
 
-    def generate_redame(self):
-        self.__mdFile.new_header(level=1, title="UNIL_DataMining_TextAnalytics")
-        self.__mdFile.new_header(level=2, title="Result without Data Cleaning")
+    def generate_readme(self):
+        self.__mdFile.new_header(level=1, title="Result without Data Cleaning")
         data = ["/","Logistic regression", "kNN", "Decision Tree", "Random Forests"]
         data.extend(["Precision", self.__lr0.getPrecision(), self.__knn0.getPrecision(),self.__dt0.getPrecision(),self.__rf0.getPrecision()])
         data.extend(["Recall", self.__lr0.getRecall(),self.__knn0.getRecall(),self.__dt0.getRecall(),self.__rf0.getRecall()])
@@ -70,6 +72,35 @@ if __name__ == '__main__':
     rf_metrics0 = rfThread.join()
 
     print(lr_metrics0)
+    sns.heatmap(pd.DataFrame(lr_metrics0.getConfMatrix()[0]), annot=True, cmap='Oranges', fmt='.4g');
+    plt.savefig("LR_without_DC.png")
+    plt.clf()
+    plt.cla()
+    plt.close()
+    
+    print(kNN_metrics0)
+    sns.heatmap(pd.DataFrame(kNN_metrics0.getConfMatrix()[0]), annot=True, cmap='Oranges', fmt='.4g');
+    plt.savefig("KNN_without_DC.png")
+    plt.clf()
+    plt.cla()
+    plt.close()
+
+    print(dt_metrics0)
+    sns.heatmap(pd.DataFrame(dt_metrics0.getConfMatrix()[0]), annot=True, cmap='Oranges', fmt='.4g');
+    plt.savefig("DT_without_DC.png")
+    plt.clf()
+    plt.cla()
+    plt.close()
+
+    print(rf_metrics0)
+    sns.heatmap(pd.DataFrame(rf_metrics0.getConfMatrix()[0]), annot=True, cmap='Oranges', fmt='.4g');
+    plt.savefig("RF_without_DC.png")
+    plt.clf()
+    plt.cla()
+    plt.close()
+    df = pd.DataFrame({'Accuracy' : [float(lr_metrics0.getAccuracy()[0]),float(kNN_metrics0.getAccuracy()[0]),float(dt_metrics0.getAccuracy()[0]),float(rf_metrics0.getAccuracy()[0])]}, index=["LR","kNN","DT","RF"])
+    df.plot()
+    plt.savefig("Graph_Acc_without_DC.png")
     
 
     print(f"[Main]\t:\tTotal execution time : {time.time() - start_time}")
@@ -100,8 +131,8 @@ if __name__ == '__main__':
     rf_metrics = rfThread.join()
     # mlp_metrics = mlpThread.join()
 
-    rg = ReadmeGenerator(lr_metrics0, kNN_metrics0, dt_metrics0, rf_metrics0, lr_metrics, kNN_metrics, dt_metrics, rf_metrics, mlp_metrics)
-    rg.generate_redame()
+    rg = ReadmeGenerator(lr_metrics0, kNN_metrics0, dt_metrics0, rf_metrics0, lr_metrics, kNN_metrics, dt_metrics, rf_metrics)
+    rg.generate_readme()
     print(f"[Main]\t:\tTotal execution time : {time.time() - start_time}")
 
 
